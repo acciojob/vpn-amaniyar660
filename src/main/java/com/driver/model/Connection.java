@@ -1,25 +1,29 @@
 package com.driver.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "connections")
-public class Connection {
+@Table(name = "countries")
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn
-    private User user;
+    @Enumerated(EnumType.STRING)
+    private CountryName countryName;
 
-    @JoinColumn
+    private String code;
+
+
     @ManyToOne
+    @JoinColumn
     private ServiceProvider serviceProvider;
 
-    public Connection() {
-    }
 
+    @OneToOne
+    private User user;
+
+    public Country() {
+    }
 
     public int getId() {
         return id;
@@ -29,12 +33,20 @@ public class Connection {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public CountryName getCountryName() {
+        return countryName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCountryName(CountryName countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public ServiceProvider getServiceProvider() {
@@ -43,5 +55,13 @@ public class Connection {
 
     public void setServiceProvider(ServiceProvider serviceProvider) {
         this.serviceProvider = serviceProvider;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
